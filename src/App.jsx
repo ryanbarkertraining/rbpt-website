@@ -10,9 +10,10 @@ import screenMessaging from "./assets/screen-messaging.png";
 
 const rbptLogoSrc = rbptLogo;
 const coachImageSrc = coachimage;
+
 const PHONE_W = 190;
 const PHONE_H = 380;
-const PHONE_DEPTH = 18;
+const PHONE_DEPTH = 10;
 const PHONE_RADIUS = 42;
 const CAROUSEL_RADIUS = 240;
 
@@ -464,7 +465,7 @@ function PhoneCarousel() {
       const delta = time - last.current;
       last.current = time;
 
-      setAngle((current) => (current + delta * 0.006) % 360);
+      setAngle((current) => (current + delta * 0.0025) % 360);
       raf.current = requestAnimationFrame(tick);
     };
 
@@ -476,7 +477,10 @@ function PhoneCarousel() {
   }, []);
 
   return (
-    <div className="relative mx-auto w-full max-w-[720px] overflow-hidden">
+    <div
+      className="relative mx-auto w-full max-w-[720px] overflow-hidden"
+      style={{ touchAction: "pan-y" }}
+    >
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
