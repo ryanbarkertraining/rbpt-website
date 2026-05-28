@@ -370,7 +370,7 @@ function Hero() {
           variants={fadeUp}
           className="mt-5 max-w-xl text-sm leading-7 text-[#AAB4C3] min-[430px]:text-base sm:text-lg sm:leading-8"
         >
-          Built for people who want more than generic workout plans. RBPT combines performance focused training, practical nutrition, and real accountability to help you build strength, improve your physique, and perform at a higher level..
+          Built for people who want more than generic workout plans. RBPT combines performance focused training, practical nutrition, and real accountability to help you build strength, improve your physique, and perform at a higher level.
         </motion.p>
         <motion.div
           variants={fadeUp}
@@ -864,18 +864,40 @@ function MeetCoachSection() {
     { icon: Dumbbell, title: "Wide Range of Client Experience", text: "Experience working with clients from a wide range of backgrounds, including beginners, athletes, weight loss clients, and individuals focused on long-term health and performance." },
   ];
 
+  const coachChips = [
+    "Bachelor's Degree in Exercise Science",
+    "Certified Nutrition Coach",
+    "Certified Personal Trainer",
+  ];
+
   return (
     <section id="coach" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
       <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:rounded-[2.5rem] sm:p-8 xl:p-10">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(29,107,255,0.20),transparent_42%),radial-gradient(circle_at_90%_100%,rgba(73,166,255,0.10),transparent_38%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(29,107,255,0.18),transparent_42%),radial-gradient(circle_at_90%_100%,rgba(73,166,255,0.10),transparent_38%)]" />
 
-        <div className="relative grid gap-8 xl:grid-cols-[0.95fr_1.05fr] xl:items-center">
-          <div>
-            <SectionHeader
-              eyebrow="Meet Your Coach"
-              title="Results-driven coaching focused on strength, health, and long-term success."
-              text="I help clients improve their health, performance, and confidence through personalized coaching focused on strength training, nutrition, accountability, and long-term wellness."
-            />
+        <div className="relative grid gap-8 xl:grid-cols-[1.02fr_0.98fr] xl:items-center">
+          <div className="max-w-[620px]">
+            <p className="text-sm sm:text-base font-bold uppercase tracking-[0.35em] text-[#49A6FF]">
+              Meet Your Coach
+            </p>
+            <h2 className="mt-4 max-w-full break-words text-[2.65rem] font-black leading-[0.98] tracking-[-0.045em] sm:text-[3.45rem] xl:text-[4.45rem]">
+              Results-driven coaching focused on long-term success.
+            </h2>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-[#AAB4C3] sm:text-lg sm:leading-8">
+              I help clients improve their health, performance, and confidence through personalized coaching focused on strength training, nutrition, accountability, and long-term wellness.
+            </p>
+
+            <div className="mt-7 grid gap-3 sm:grid-cols-3 xl:max-w-[590px]">
+              {coachChips.map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-2 rounded-2xl border border-[#1D6BFF]/20 bg-[#07111F]/70 px-4 py-3 text-sm font-bold text-white shadow-[0_0_18px_rgba(29,107,255,0.08)]"
+                >
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#49A6FF]" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
@@ -890,7 +912,17 @@ function MeetCoachSection() {
 }
 
 function CredentialCard({ icon: Icon, title, text }) {
-  return <div className="flex gap-4 rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-5"><div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#1D6BFF]/15 text-[#49A6FF]"><Icon className="h-6 w-6" /></div><div><h3 className="text-lg font-bold">{title}</h3><p className="mt-2 leading-7 text-[#AAB4C3]">{text}</p></div></div>;
+  return (
+    <div className="flex gap-4 rounded-[1.65rem] border border-white/10 bg-white/[0.04] p-4 sm:p-5 xl:p-4">
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#1D6BFF]/15 text-[#49A6FF]">
+        <Icon className="h-5 w-5" />
+      </div>
+      <div>
+        <h3 className="text-base font-bold sm:text-lg">{title}</h3>
+        <p className="mt-2 text-sm leading-6 text-[#AAB4C3] sm:text-base sm:leading-7">{text}</p>
+      </div>
+    </div>
+  );
 }
 
 function ScienceSection() {
