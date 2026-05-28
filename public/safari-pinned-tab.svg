@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="72" fill="black"/>
+  <text x="256" y="185" font-family="Arial Black, Impact, sans-serif" font-size="164" font-weight="900" text-anchor="middle" fill="white">RB</text>
+  <text x="256" y="350" font-family="Arial Black, Impact, sans-serif" font-size="164" font-weight="900" text-anchor="middle" fill="white">PT</text>
+  <circle cx="413" cy="392" r="42" fill="white"/>
+</svg>
