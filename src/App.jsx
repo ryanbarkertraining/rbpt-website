@@ -11,10 +11,10 @@ import screenMessaging from "./assets/screen-messaging.png";
 const rbptLogoSrc = rbptLogo;
 const coachImageSrc = coachimage;
 
-const PHONE_W = 190;
-const PHONE_H = 380;
+const PHONE_W = 220;
+const PHONE_H = 440;
 const PHONE_DEPTH = 10;
-const PHONE_RADIUS = 42;
+const PHONE_RADIUS = 48;
 const CAROUSEL_RADIUS = 240;
 
 const fadeUp = {
@@ -390,26 +390,31 @@ function AppStep({ icon: Icon, title, text }) {
 }
 
 function PhoneCarousel() {
-  const [angle, setAngle] = useState(0);
+  const [activePhoneIndex, setActivePhoneIndex] = useState(0);
+  const [carouselAngle, setCarouselAngle] = useState(0);
   const [viewportWidth, setViewportWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 1200
   );
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragDelta, setDragDelta] = useState(0);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
-  const raf = useRef(null);
-  const last = useRef(0);
+  const dragStartX = useRef(0);
+  const dragCurrentDelta = useRef(0);
+  const activePointerId = useRef(null);
 
   const phoneScale =
     viewportWidth < 640
-      ? Math.min(0.74, Math.max(0.62, viewportWidth / 620))
-      : Math.min(0.78, Math.max(0.58, viewportWidth / 1250));
+      ? Math.min(0.78, Math.max(0.66, viewportWidth / 580))
+      : Math.min(0.86, Math.max(0.68, viewportWidth / 1040));
   const carouselRadius =
     viewportWidth < 640
-      ? Math.min(160, Math.max(122, viewportWidth * 0.30))
-      : Math.min(180, Math.max(120, viewportWidth * 0.18));
+      ? Math.min(178, Math.max(142, viewportWidth * 0.36))
+      : Math.min(220, Math.max(168, viewportWidth * 0.24));
   const stageHeight =
     viewportWidth < 640
-      ? Math.min(560, Math.max(455, viewportWidth * 1.05))
-      : Math.min(540, Math.max(420, viewportWidth * 0.42));
+      ? Math.min(610, Math.max(540, viewportWidth * 1.25))
+      : Math.min(635, Math.max(570, viewportWidth * 0.55));
 
   const phones = [
     {
@@ -446,6 +451,79 @@ function PhoneCarousel() {
     },
   ];
 
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  const interactiveAngle = carouselAngle + clamp(dragDelta * 0.22, -38, 38);
+
+  const getClosestCarouselAngle = (currentAngle, targetIndex) => {
+    const normalizedTarget = (targetIndex + phones.length) % phones.length;
+    const baseAngle = -normalizedTarget * 90;
+    const options = [baseAngle - 360, baseAngle, baseAngle + 360];
+
+    return options.reduce((closest, option) =>
+      Math.abs(option - currentAngle) < Math.abs(closest - currentAngle)
+        ? option
+        : closest
+    );
+  };
+
+  const rotateToPhone = (direction) => {
+    setHasInteracted(true);
+    setDragDelta(0);
+
+    setCarouselAngle((current) => current - direction * 90);
+    setActivePhoneIndex((current) => {
+      const nextIndex = current + direction;
+      return (nextIndex + phones.length) % phones.length;
+    });
+  };
+
+  const setPhoneIndex = (targetIndex) => {
+    setHasInteracted(true);
+    setDragDelta(0);
+
+    const normalizedTarget = (targetIndex + phones.length) % phones.length;
+
+    setCarouselAngle((current) => getClosestCarouselAngle(current, normalizedTarget));
+    setActivePhoneIndex(normalizedTarget);
+  };
+
+  const nextPhone = () => {
+    rotateToPhone(1);
+  };
+
+  const previousPhone = () => {
+    rotateToPhone(-1);
+  };
+
+  const handlePointerDown = (event) => {
+    event.preventDefault();
+    activePointerId.current = event.pointerId;
+    dragStartX.current = event.clientX;
+    dragCurrentDelta.current = 0;
+    setIsDragging(true);
+    setHasInteracted(true);
+    setDragDelta(0);
+
+    if (event.currentTarget.setPointerCapture) {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
+  };
+
+  const finishDrag = (finalDelta) => {
+    const threshold = viewportWidth < 640 ? 34 : 48;
+
+    setIsDragging(false);
+    activePointerId.current = null;
+    dragCurrentDelta.current = 0;
+    setDragDelta(0);
+
+    if (finalDelta > threshold) {
+      rotateToPhone(-1);
+    } else if (finalDelta < -threshold) {
+      rotateToPhone(1);
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setViewportWidth(window.innerWidth);
@@ -460,25 +538,34 @@ function PhoneCarousel() {
   }, []);
 
   useEffect(() => {
-    const tick = (time) => {
-      if (!last.current) last.current = time;
-      const delta = time - last.current;
-      last.current = time;
+    if (!isDragging) return;
 
-      setAngle((current) => (current + delta * 0.0025) % 360);
-      raf.current = requestAnimationFrame(tick);
+    const handleWindowPointerMove = (event) => {
+      if (activePointerId.current !== null && event.pointerId !== activePointerId.current) return;
+      const nextDelta = event.clientX - dragStartX.current;
+      dragCurrentDelta.current = nextDelta;
+      setDragDelta(nextDelta);
     };
 
-    raf.current = requestAnimationFrame(tick);
+    const handleWindowPointerUp = (event) => {
+      if (activePointerId.current !== null && event.pointerId !== activePointerId.current) return;
+      finishDrag(dragCurrentDelta.current);
+    };
+
+    window.addEventListener("pointermove", handleWindowPointerMove);
+    window.addEventListener("pointerup", handleWindowPointerUp);
+    window.addEventListener("pointercancel", handleWindowPointerUp);
 
     return () => {
-      if (raf.current) cancelAnimationFrame(raf.current);
+      window.removeEventListener("pointermove", handleWindowPointerMove);
+      window.removeEventListener("pointerup", handleWindowPointerUp);
+      window.removeEventListener("pointercancel", handleWindowPointerUp);
     };
-  }, []);
+  }, [isDragging, viewportWidth, activePhoneIndex]);
 
   return (
     <div
-      className="relative mx-auto w-full max-w-[720px] overflow-hidden"
+      className="relative mx-auto w-full max-w-[720px] overflow-visible"
       style={{ touchAction: "pan-y" }}
     >
       <motion.div
@@ -486,20 +573,64 @@ function PhoneCarousel() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
-        className="relative overflow-hidden rounded-[2rem] border border-[#1D6BFF]/20 bg-[#03060A] p-3 shadow-[0_0_35px_rgba(29,107,255,0.10)] sm:rounded-[2.5rem] sm:p-6"
+        className="relative overflow-visible rounded-[2rem] border border-[#1D6BFF]/20 bg-[#03060A] p-3 shadow-[0_0_35px_rgba(29,107,255,0.10)] sm:rounded-[2.5rem] sm:p-6"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_64%,rgba(29,107,255,0.25),transparent_58%)]" />
-        <div
-          className="relative z-10 flex items-center justify-center overflow-hidden [perspective:1600px]"
-          style={{ minHeight: stageHeight }}
+
+        <div className="absolute left-1/2 top-4 z-30 hidden -translate-x-1/2 rounded-full border border-white/10 bg-[#05070B]/80 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#AAB4C3] backdrop-blur sm:block">
+          Drag to rotate
+        </div>
+
+        <button
+          type="button"
+          onClick={previousPhone}
+          className="absolute left-3 top-1/2 z-30 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/10 bg-[#05070B]/80 text-white shadow-[0_0_24px_rgba(29,107,255,0.18)] backdrop-blur transition hover:border-[#1D6BFF]/50 hover:bg-[#1D6BFF]/20 sm:left-5"
+          aria-label="Previous app screen"
         >
+          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          onClick={nextPhone}
+          className="absolute right-3 top-1/2 z-30 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/10 bg-[#05070B]/80 text-white shadow-[0_0_24px_rgba(29,107,255,0.18)] backdrop-blur transition hover:border-[#1D6BFF]/50 hover:bg-[#1D6BFF]/20 sm:right-5"
+          aria-label="Next app screen"
+        >
+          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M9 18l6-6-6-6" />
+          </svg>
+        </button>
+
+        <div
+          className={`relative z-10 flex select-none items-center justify-center overflow-visible [perspective:1600px] ${
+            isDragging ? "cursor-grabbing" : "cursor-grab"
+          }`}
+          style={{ minHeight: stageHeight, touchAction: "none" }}
+          onPointerDown={handlePointerDown}
+        >
+          <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-16 bg-gradient-to-r from-[#03060A] to-transparent sm:w-24" />
+          <div className="pointer-events-none absolute right-0 top-0 z-20 h-full w-16 bg-gradient-to-l from-[#03060A] to-transparent sm:w-24" />
+
+          <motion.div
+            className="pointer-events-none absolute bottom-8 left-1/2 z-30 -translate-x-1/2 rounded-full border border-[#1D6BFF]/30 bg-[#07111F]/85 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#D3DAE5] shadow-[0_0_20px_rgba(29,107,255,0.18)] backdrop-blur sm:hidden"
+            animate={hasInteracted ? { opacity: 0, y: 8 } : { opacity: [0.7, 1, 0.7], y: [0, -3, 0] }}
+            transition={hasInteracted ? { duration: 0.25 } : { duration: 1.8, repeat: Infinity }}
+          >
+            Swipe to explore
+          </motion.div>
+
           <div
             className="relative [transform-style:preserve-3d] will-change-transform"
             style={{
               width: PHONE_W,
               height: PHONE_H,
-              transform: `translateY(${viewportWidth < 640 ? -38 : -26}px) scale(${phoneScale}) rotateX(-7deg) rotateY(${angle}deg)`,
+              transform: `translateY(${viewportWidth < 640 ? -56 : -58}px) scale(${phoneScale}) rotateX(-7deg) rotateY(${interactiveAngle}deg)`,
               transformOrigin: "center center",
+              transition: isDragging
+                ? "none"
+                : "transform 650ms cubic-bezier(0.22, 1, 0.36, 1)",
             }}
           >
             {phones.map((phone) => (
@@ -515,18 +646,28 @@ function PhoneCarousel() {
             ))}
           </div>
         </div>
+
+        <div className="relative z-20 mt-4 flex flex-wrap items-center justify-center gap-2 pb-2">
+          {phones.map((phone, index) => (
+            <button
+              key={phone.title}
+              type="button"
+              onClick={() => setPhoneIndex(index)}
+              className={`rounded-full px-4 py-2 text-xs font-bold transition ${
+                activePhoneIndex === index
+                  ? "bg-[#1D6BFF] text-white shadow-[0_0_20px_rgba(29,107,255,0.35)]"
+                  : "border border-white/10 bg-white/[0.04] text-[#AAB4C3] hover:border-[#1D6BFF]/40 hover:text-white"
+              }`}
+              aria-label={`Show ${phone.label} screen`}
+            >
+              {phone.label}
+            </button>
+          ))}
+        </div>
+
       </motion.div>
 
-      <div className="mt-7 grid w-full grid-cols-2 gap-3 lg:grid-cols-4">
-        {[
-          ["24/7", "Coach Messaging"],
-          ["All-In-1", "Training + Nutrition"],
-          ["Live", "Progress Tracking"],
-          ["Custom", "Built Around You"],
-        ].map(([value, label]) => (
-          <StatCard key={label} value={value} label={label} />
-        ))}
-      </div>
+      
     </div>
   );
 }
@@ -615,15 +756,22 @@ function Phone3D({ title, label, screen, bubbleTitle, bubbleText }) {
             alt={`${label} RBPT app screen`}
             className="h-full w-full object-cover object-top"
             draggable={false}
+            decoding="async"
+            loading="eager"
             style={{
               backfaceVisibility: "hidden",
-              transform: "translateZ(0)",
+              WebkitBackfaceVisibility: "hidden",
+              transform: "translate3d(0,0,1px) scale(1.0001)",
+              WebkitTransform: "translate3d(0,0,1px) scale(1.0001)",
               WebkitFontSmoothing: "antialiased",
+              imageRendering: "-webkit-optimize-contrast",
+              filter: "contrast(1.04) saturate(1.04)",
+              willChange: "transform",
             }}
           />
 
           <div className="absolute left-1/2 top-2 z-20 h-[22px] w-[82px] -translate-x-1/2 rounded-full bg-black shadow-[0_2px_5px_rgba(0,0,0,0.45)]" />
-          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(118deg,rgba(255,255,255,0.30),transparent_24%,transparent_62%,rgba(255,255,255,0.12)_78%,transparent)] mix-blend-screen" />
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(118deg,rgba(255,255,255,0.14),transparent_24%,transparent_66%,rgba(255,255,255,0.06)_80%,transparent)] mix-blend-screen" />
           <div className="pointer-events-none absolute inset-0 ring-1 ring-white/10" style={{ borderRadius: PHONE_RADIUS - 13 }} />
         </div>
       </div>
