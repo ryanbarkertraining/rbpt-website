@@ -311,6 +311,47 @@ function MiniStat({ label, value, accent = false }) {
   return <div className="rounded-2xl bg-white/[0.05] p-3"><p className="text-[11px] text-[#AAB4C3]">{label}</p><p className={`text-sm font-black ${accent ? "text-[#49A6FF]" : ""}`}>{value}</p></div>;
 }
 
+
+function CoachHeroCard() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.94 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.7 }}
+      className="relative z-0"
+    >
+      <div className="relative mx-auto w-full max-w-[500px] overflow-hidden rounded-[2rem] border border-[#1D6BFF]/20 bg-[#0E131B] p-4 shadow-2xl sm:rounded-[2.5rem] sm:p-5 xl:max-w-[560px]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(29,107,255,0.26),transparent_58%)]" />
+        <div className="relative mx-auto aspect-[4/5] w-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-[#111A28] via-[#05070B] to-black sm:rounded-[2rem]">
+          <img
+            src={coachImageSrc}
+            alt="Ryan Barker coach portrait"
+            className="absolute inset-0 h-full w-full object-cover object-center scale-[1.12] opacity-95 translate-y-[3%] sm:scale-[1.18] sm:translate-y-[1%]"
+            draggable={false}
+            decoding="async"
+            loading="eager"
+          />
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/75 to-transparent" />
+          <div className="absolute left-5 top-5 rounded-full border border-[#1D6BFF]/30 bg-[#1D6BFF]/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-[#49A6FF] backdrop-blur sm:left-6 sm:top-6">
+            Meet Your Coach
+          </div>
+          <div className="absolute bottom-5 left-5 right-5 sm:bottom-8 sm:left-8 sm:right-8">
+            <p className="text-3xl font-black tracking-[-0.05em] sm:text-4xl">Ryan Barker</p>
+            <p className="mt-2 text-base text-[#AAB4C3] sm:text-lg">Health, Wellness & Performance Coach</p>
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:mt-6 sm:gap-3">
+              {["Strength Training", "Nutrition", "Accountability", "Health & Longevity"].map((item) => (
+                <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.05] px-3 py-2 text-xs font-semibold text-white sm:px-4 sm:py-3 sm:text-sm">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 function Hero() {
   return (
     <section className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 pt-10 sm:px-6 xl:grid-cols-2 xl:pb-28 xl:pt-24">
@@ -339,7 +380,7 @@ function Hero() {
           
         </motion.div>
       </motion.div>
-      <HeroMetricSlider />
+      <CoachHeroCard />
     </section>
   );
 }
@@ -825,23 +866,23 @@ function MeetCoachSection() {
 
   return (
     <section id="coach" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
-      <div className="grid gap-10 xl:grid-cols-[0.9fr_1.1fr] xl:items-center">
-        <div className="relative mx-auto w-full max-w-[500px] overflow-hidden rounded-[2rem] border border-[#1D6BFF]/20 bg-[#0E131B] p-4 sm:rounded-[2.5rem] sm:p-5 xl:max-w-none">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(29,107,255,0.22),transparent_55%)]" />
-          <div className="relative mx-auto aspect-[4/5] w-full max-w-[420px] overflow-hidden rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-[#111A28] via-[#05070B] to-black sm:rounded-[2rem] xl:max-w-none">
-            <img src={coachImageSrc} alt="Ryan Barker coach portrait" className="absolute inset-0 h-full w-full object-cover object-center scale-[1.12] opacity-95 translate-y-[3%] sm:scale-[1.18] sm:translate-y-[1%]" />
-            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/75 to-transparent" />
-            <div className="absolute left-6 top-6 rounded-full border border-[#1D6BFF]/30 bg-[#1D6BFF]/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.25em] text-[#49A6FF] backdrop-blur">Meet Your Coach</div>
-            <div className="absolute bottom-5 left-5 right-5 sm:bottom-8 sm:left-8 sm:right-8">
-              <p className="text-3xl font-black tracking-[-0.05em] sm:text-4xl">Ryan Barker</p>
-              <p className="mt-2 text-base text-[#AAB4C3] sm:text-lg">Health, Wellness & Performance Coach</p>
-              <div className="mt-4 grid grid-cols-2 gap-2 sm:mt-6 sm:gap-3">{["Strength Training", "Nutrition", "Accountability", "Health & Longevity"].map((item) => <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.05] px-3 py-2 text-xs font-semibold text-white sm:px-4 sm:py-3 sm:text-sm">{item}</div>)}</div>
-            </div>
+      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:rounded-[2.5rem] sm:p-8 xl:p-10">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(29,107,255,0.20),transparent_42%),radial-gradient(circle_at_90%_100%,rgba(73,166,255,0.10),transparent_38%)]" />
+
+        <div className="relative grid gap-8 xl:grid-cols-[0.95fr_1.05fr] xl:items-center">
+          <div>
+            <SectionHeader
+              eyebrow="Meet Your Coach"
+              title="Results-driven coaching focused on strength, health, and long-term success."
+              text="I help clients improve their health, performance, and confidence through personalized coaching focused on strength training, nutrition, accountability, and long-term wellness."
+            />
           </div>
-        </div>
-        <div>
-          <SectionHeader eyebrow="Meet Your Coach" title="Results-driven coaching focused on strength, health, and long-term success." text="I help clients improve their health, performance, and confidence through personalized coaching focused on strength training, nutrition, accountability, and long-term wellness." />
-          <div className="mt-8 space-y-4">{credentials.map((item) => <CredentialCard key={item.title} {...item} />)}</div>
+
+          <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
+            {credentials.map((item) => (
+              <CredentialCard key={item.title} {...item} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -927,11 +968,11 @@ function ResultsSection() {
               “{testimonial.quote}”
             </p>
 
-            <div className="mt-8 flex flex-col items-center justify-between gap-5 sm:flex-row">
+            <div className="mt-8 flex items-center justify-center gap-3">
               <button
                 type="button"
                 onClick={prevSlide}
-                className="w-full rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 text-sm font-bold text-white transition hover:border-[#1D6BFF]/50 hover:bg-[#1D6BFF]/10 sm:w-auto"
+                className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-4 py-3 text-sm font-bold text-white transition hover:border-[#1D6BFF]/50 hover:bg-[#1D6BFF]/10"
               >
                 Previous
               </button>
@@ -955,7 +996,7 @@ function ResultsSection() {
               <button
                 type="button"
                 onClick={nextSlide}
-                className="w-full rounded-full bg-[#1D6BFF] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#49A6FF] sm:w-auto"
+                className="shrink-0 rounded-full bg-[#1D6BFF] px-4 py-3 text-sm font-bold text-white transition hover:bg-[#49A6FF]"
               >
                 Next
               </button>
