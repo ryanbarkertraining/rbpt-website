@@ -573,18 +573,19 @@ function PhoneCarousel() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7 }}
-        className="relative overflow-visible rounded-[2rem] border border-[#1D6BFF]/20 bg-[#03060A] p-3 shadow-[0_0_35px_rgba(29,107,255,0.10)] sm:rounded-[2.5rem] sm:p-6"
+        className="relative overflow-visible rounded-[2rem] border border-[#1D6BFF]/25 bg-[#05070B]/95 p-3 shadow-[0_0_35px_rgba(29,107,255,0.12)] sm:rounded-[2.5rem] sm:p-6"
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_64%,rgba(29,107,255,0.25),transparent_58%)]" />
+        <div className="pointer-events-none absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_50%_58%,rgba(29,107,255,0.18),transparent_62%)] sm:rounded-[2.5rem]" />
+        <div className="pointer-events-none absolute inset-[1px] rounded-[calc(2rem-1px)] border border-white/[0.035] sm:rounded-[calc(2.5rem-1px)]" />
 
-        <div className="absolute left-1/2 top-4 z-30 hidden -translate-x-1/2 rounded-full border border-white/10 bg-[#05070B]/80 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#AAB4C3] backdrop-blur sm:block">
+        <div className="absolute left-1/2 top-4 z-30 hidden -translate-x-1/2 rounded-full border border-[#1D6BFF]/25 bg-[#07111F]/85 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#AAB4C3] shadow-[0_0_18px_rgba(29,107,255,0.12)] backdrop-blur sm:block">
           Drag to rotate
         </div>
 
         <button
           type="button"
           onClick={previousPhone}
-          className="absolute left-3 top-1/2 z-30 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/10 bg-[#05070B]/80 text-white shadow-[0_0_24px_rgba(29,107,255,0.18)] backdrop-blur transition hover:border-[#1D6BFF]/50 hover:bg-[#1D6BFF]/20 sm:left-5"
+          className="absolute left-3 top-1/2 z-30 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-[#1D6BFF]/25 bg-[#07111F]/85 text-white shadow-[0_0_24px_rgba(29,107,255,0.18)] backdrop-blur transition hover:border-[#49A6FF]/55 hover:bg-[#1D6BFF]/20 sm:left-5"
           aria-label="Previous app screen"
         >
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -595,7 +596,7 @@ function PhoneCarousel() {
         <button
           type="button"
           onClick={nextPhone}
-          className="absolute right-3 top-1/2 z-30 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-white/10 bg-[#05070B]/80 text-white shadow-[0_0_24px_rgba(29,107,255,0.18)] backdrop-blur transition hover:border-[#1D6BFF]/50 hover:bg-[#1D6BFF]/20 sm:right-5"
+          className="absolute right-3 top-1/2 z-30 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full border border-[#1D6BFF]/25 bg-[#07111F]/85 text-white shadow-[0_0_24px_rgba(29,107,255,0.18)] backdrop-blur transition hover:border-[#49A6FF]/55 hover:bg-[#1D6BFF]/20 sm:right-5"
           aria-label="Next app screen"
         >
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -610,12 +611,12 @@ function PhoneCarousel() {
           style={{ minHeight: stageHeight, touchAction: "none" }}
           onPointerDown={handlePointerDown}
         >
-          <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-16 bg-gradient-to-r from-[#03060A] to-transparent sm:w-24" />
-          <div className="pointer-events-none absolute right-0 top-0 z-20 h-full w-16 bg-gradient-to-l from-[#03060A] to-transparent sm:w-24" />
+          <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-16 bg-gradient-to-r from-[#05070B] to-transparent sm:w-24" />
+          <div className="pointer-events-none absolute right-0 top-0 z-20 h-full w-16 bg-gradient-to-l from-[#05070B] to-transparent sm:w-24" />
 
           <motion.div
-            className="pointer-events-none absolute bottom-8 left-1/2 z-30 -translate-x-1/2 rounded-full border border-[#1D6BFF]/30 bg-[#07111F]/85 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#D3DAE5] shadow-[0_0_20px_rgba(29,107,255,0.18)] backdrop-blur sm:hidden"
-            animate={hasInteracted ? { opacity: 0, y: 8 } : { opacity: [0.7, 1, 0.7], y: [0, -3, 0] }}
+            className="pointer-events-none absolute left-1/2 top-4 z-30 -translate-x-1/2 rounded-full border border-[#1D6BFF]/30 bg-[#07111F]/85 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-[#D3DAE5] shadow-[0_0_20px_rgba(29,107,255,0.18)] backdrop-blur sm:hidden"
+            animate={hasInteracted ? { opacity: 0, y: -8 } : { opacity: [0.7, 1, 0.7], y: [0, -3, 0] }}
             transition={hasInteracted ? { duration: 0.25 } : { duration: 1.8, repeat: Infinity }}
           >
             Swipe to explore
@@ -647,16 +648,16 @@ function PhoneCarousel() {
           </div>
         </div>
 
-        <div className="relative z-20 mt-4 flex flex-wrap items-center justify-center gap-2 pb-2">
+        <div className="relative z-20 mt-4 grid grid-cols-2 gap-2 pb-2 sm:flex sm:flex-wrap sm:items-center sm:justify-center">
           {phones.map((phone, index) => (
             <button
               key={phone.title}
               type="button"
               onClick={() => setPhoneIndex(index)}
-              className={`rounded-full px-4 py-2 text-xs font-bold transition ${
+              className={`inline-flex w-full items-center justify-center rounded-full px-4 py-2 text-center text-xs font-bold transition sm:w-auto ${
                 activePhoneIndex === index
-                  ? "bg-[#1D6BFF] text-white shadow-[0_0_20px_rgba(29,107,255,0.35)]"
-                  : "border border-white/10 bg-white/[0.04] text-[#AAB4C3] hover:border-[#1D6BFF]/40 hover:text-white"
+                  ? "bg-[#1D6BFF] text-white shadow-[0_0_20px_rgba(29,107,255,0.38)]"
+                  : "border border-[#1D6BFF]/18 bg-[#07111F]/70 text-[#AAB4C3] hover:border-[#1D6BFF]/45 hover:bg-[#0B1524] hover:text-white"
               }`}
               aria-label={`Show ${phone.label} screen`}
             >
@@ -666,8 +667,6 @@ function PhoneCarousel() {
         </div>
 
       </motion.div>
-
-      
     </div>
   );
 }
@@ -1029,18 +1028,6 @@ function Footer() {
   return <footer className="relative z-10 border-t border-white/10 px-6 py-10"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 text-sm text-[#AAB4C3] md:flex-row md:items-center"><div className="flex items-center gap-3"><RBPTLogo className="h-10 w-10" /><p>© 2026 RBPT Coaching</p></div><div className="flex gap-6"><a href="#coach" className="hover:text-white">Meet Your Coach</a><a href="#app" className="hover:text-white">App</a><a href="#apply" className="hover:text-white">Apply</a></div></div></footer>;
 }
 
-function StatCard({ value, label }) {
-  return (
-    <div className="flex min-h-[96px] w-full min-w-0 flex-col items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] p-4 text-center">
-      <p className="text-2xl font-black leading-none text-[#49A6FF]">
-        {value}
-      </p>
-      <p className="mt-2 max-w-full text-xs leading-tight text-[#AAB4C3]">
-        {label}
-      </p>
-    </div>
-  );
-}
 
 function SectionHeader({ eyebrow, title, text }) {
   return <div className="max-w-3xl"><p className="text-sm sm:text-base font-bold uppercase tracking-[0.35em] text-[#49A6FF]">{eyebrow}</p><h2 className="mt-4 max-w-full break-words text-3xl font-black leading-[1] tracking-[-0.04em] sm:text-5xl xl:text-6xl">{title}</h2>{text && <p className="mt-5 text-base leading-7 text-[#AAB4C3] sm:text-lg sm:leading-8">{text}</p>}</div>;
