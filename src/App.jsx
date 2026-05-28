@@ -10,7 +10,6 @@ import screenMessaging from "./assets/screen-messaging.png";
 
 const rbptLogoSrc = rbptLogo;
 const coachImageSrc = coachimage;
-
 const PHONE_W = 190;
 const PHONE_H = 380;
 const PHONE_DEPTH = 18;
