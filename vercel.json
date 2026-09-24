@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/assisted-stretching", "destination": "/index.html" }
+  ]
+}
