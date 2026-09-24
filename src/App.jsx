@@ -7,7 +7,7 @@ import screenDashboard from "./assets/screen-dashboard.png";
 import screenWorkout from "./assets/screen-workout.png";
 import screenNutrition from "./assets/screen-nutrition.png";
 import screenMessaging from "./assets/screen-messaging.png";
-import assistedHamstringStretch from "./assets/assisted-hamstring-stretch.png";
+import assistedHamstringStretch from "./assets/assisted-hamstring-stretch.jpg";
 import assistedBackStretch from "./assets/assisted-back-stretch.png";
 import coachPagePortrait from "./assets/coach-page-portrait.png";
 
@@ -560,7 +560,7 @@ function AssistedStretchingPage() {
             <a href="#how-it-works" className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/20 px-7 py-3 font-semibold hover:border-[#49A6FF] sm:py-4">How it works</a>
           </div>
         </div>
-        <img src={assistedHamstringStretch} alt="Ryan guiding a client's hamstring stretch on a portable treatment table at home" className="block h-auto w-full rounded-[1.5rem] border border-white/10 sm:rounded-[2rem]" fetchPriority="high" />
+        <img src={assistedHamstringStretch} alt="Ryan guiding a client's hamstring stretch on a portable treatment table at home" className="block h-auto w-full rounded-[1.5rem] border border-white/10 sm:rounded-[2rem]" width="1536" height="1024" fetchPriority="high" />
       </section>
       <section className="mx-auto grid max-w-7xl gap-7 px-4 py-10 sm:px-6 sm:py-16 lg:grid-cols-2 lg:items-center lg:gap-12">
         <div>
