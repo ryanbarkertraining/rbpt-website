@@ -7,9 +7,6 @@ import screenDashboard from "./assets/screen-dashboard.png";
 import screenWorkout from "./assets/screen-workout.png";
 import screenNutrition from "./assets/screen-nutrition.png";
 import screenMessaging from "./assets/screen-messaging.png";
-import assistedHamstringStretch from "./assets/assisted-hamstring-stretch.png";
-import assistedBackStretch from "./assets/assisted-back-stretch.png";
-import coachPagePortrait from "./assets/coach-page-portrait.png";
 
 const rbptLogoSrc = rbptLogo;
 const coachImageSrc = coachimage;
@@ -123,20 +120,18 @@ function RBPTLogo({ className = "" }) {
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const isStretchingPage = window.location.pathname.replace(/\/$/, "") === "/assisted-stretching";
-  const isCoachPage = !isStretchingPage && window.location.pathname.replace(/\/$/, "") !== "/virtual-training";
-  const headerActionHref = isStretchingPage ? "https://form.typeform.com/to/A2k0ugFO" : isCoachPage ? "#services" : "#apply";
-  const headerActionLabel = isCoachPage ? "Explore Services" : isStretchingPage ? "Get Started" : "Apply Now";
   const navLinks = [
-    { href: "/", label: "Meet Your Coach" },
-    { href: "/virtual-training", label: "Virtual Training" },
-    { href: "/assisted-stretching", label: "Assisted Stretching" },
+    { href: "#coach", label: "Meet Your Coach" },
+    { href: "#app", label: "App" },
+    { href: "#process", label: "How It Works" },
+    { href: "#results", label: "Testimonials" },
+    { href: "#faq", label: "FAQ" },
   ];
 
   return (
     <header className="relative z-50 mx-auto max-w-7xl px-4 py-5 sm:px-6">
       <div className="flex items-center justify-between gap-4">
-        <a href="/" className="flex min-w-0 items-center gap-3" aria-label="RBPT Coaching home">
+        <div className="flex min-w-0 items-center gap-3">
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-[#1D6BFF]/40 bg-black p-2 shadow-[0_0_30px_rgba(29,107,255,0.25)]">
             <RBPTLogo className="h-full w-full" />
           </div>
@@ -144,7 +139,7 @@ function Header() {
           <div className="min-w-0">
             <p className="text-sm font-bold tracking-[0.25em] text-white">RBPT Coaching</p>
           </div>
-        </a>
+        </div>
 
         <nav className="hidden items-center gap-8 text-sm text-[#AAB4C3] md:flex">
           {navLinks.map((link) => (
@@ -154,8 +149,8 @@ function Header() {
           ))}
         </nav>
 
-        <a href={headerActionHref} target={isStretchingPage ? "_blank" : undefined} rel={isStretchingPage ? "noopener noreferrer" : undefined} className="hidden rounded-full bg-[#1D6BFF] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_0_28px_rgba(29,107,255,0.45)] hover:bg-[#49A6FF] md:inline-flex">
-          {headerActionLabel}
+        <a href="#apply" className="hidden rounded-full bg-[#1D6BFF] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_0_28px_rgba(29,107,255,0.45)] hover:bg-[#49A6FF] md:inline-flex">
+          Apply Now
         </a>
       </div>
 
@@ -173,8 +168,8 @@ function Header() {
           </svg>
         </button>
 
-        <a href={headerActionHref} target={isStretchingPage ? "_blank" : undefined} rel={isStretchingPage ? "noopener noreferrer" : undefined} className="inline-flex w-full items-center justify-center rounded-full bg-[#1D6BFF] px-6 py-3 text-sm font-semibold text-white shadow-[0_0_28px_rgba(29,107,255,0.45)] hover:bg-[#49A6FF]">
-          {headerActionLabel}
+        <a href="#apply" className="inline-flex w-full items-center justify-center rounded-full bg-[#1D6BFF] px-6 py-3 text-sm font-semibold text-white shadow-[0_0_28px_rgba(29,107,255,0.45)] hover:bg-[#49A6FF]">
+          Apply Now
         </a>
       </div>
 
@@ -317,7 +312,7 @@ function MiniStat({ label, value, accent = false }) {
 }
 
 
-function CoachHeroCard({ portrait = coachImageSrc, fullPortrait = false }) {
+function CoachHeroCard() {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.94 }}
@@ -325,13 +320,13 @@ function CoachHeroCard({ portrait = coachImageSrc, fullPortrait = false }) {
       transition={{ duration: 0.7 }}
       className="relative z-0"
     >
-      <div className={`relative mx-auto w-full overflow-hidden rounded-[2rem] border border-[#1D6BFF]/20 bg-[#0E131B] shadow-2xl sm:rounded-[2.5rem] ${fullPortrait ? "max-w-[320px] p-2 sm:max-w-[390px] sm:p-3" : "max-w-[500px] p-4 sm:p-5 xl:max-w-[560px]"}`}>
+      <div className="relative mx-auto w-full max-w-[500px] overflow-hidden rounded-[2rem] border border-[#1D6BFF]/20 bg-[#0E131B] p-4 shadow-2xl sm:rounded-[2.5rem] sm:p-5 xl:max-w-[560px]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(29,107,255,0.26),transparent_58%)]" />
-        <div className={`relative mx-auto w-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-[#111A28] via-[#05070B] to-black sm:rounded-[2rem] ${fullPortrait ? "aspect-[2/3]" : "aspect-[4/5]"}`}>
+        <div className="relative mx-auto aspect-[4/5] w-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-[#111A28] via-[#05070B] to-black sm:rounded-[2rem]">
           <img
-            src={portrait}
+            src={coachImageSrc}
             alt="Ryan Barker coach portrait"
-            className={`absolute inset-0 h-full w-full object-cover object-center opacity-95 ${fullPortrait ? "" : "scale-[1.12] translate-y-[3%] sm:scale-[1.18] sm:translate-y-[1%]"}`}
+            className="absolute inset-0 h-full w-full object-cover object-center scale-[1.12] opacity-95 translate-y-[3%] sm:scale-[1.18] sm:translate-y-[1%]"
             draggable={false}
             decoding="async"
             loading="eager"
@@ -343,6 +338,13 @@ function CoachHeroCard({ portrait = coachImageSrc, fullPortrait = false }) {
           <div className="absolute bottom-5 left-5 right-5 sm:bottom-8 sm:left-8 sm:right-8">
             <p className="text-3xl font-black tracking-[-0.05em] sm:text-4xl">Ryan Barker</p>
             <p className="mt-2 text-base text-[#AAB4C3] sm:text-lg">Health, Wellness & Performance Coach</p>
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:mt-6 sm:gap-3">
+              {["Strength Training", "Nutrition", "Accountability", "Health & Longevity"].map((item) => (
+                <div key={item} className="rounded-2xl border border-white/10 bg-white/[0.05] px-3 py-2 text-xs font-semibold text-white sm:px-4 sm:py-3 sm:text-sm">
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -391,213 +393,6 @@ function CoachingSection() {
         {systems.map((item) => <FeatureCard key={item.title} {...item} />)}
       </div>
     </section>
-  );
-}
-
-function ServiceChooser() {
-  const dialogRef = useRef(null);
-  const [open, setOpen] = useState(() => {
-    try { return sessionStorage.getItem("rbpt-service-choice-seen") !== "yes"; }
-    catch { return true; }
-  });
-  const close = () => {
-    try { sessionStorage.setItem("rbpt-service-choice-seen", "yes"); } catch {}
-    setOpen(false);
-  };
-  useEffect(() => {
-    if (!open) return;
-    const previousOverflow = document.body.style.overflow;
-    const previousFocus = document.activeElement;
-    document.body.style.overflow = "hidden";
-    dialogRef.current?.querySelector("button")?.focus();
-    const onKeyDown = (event) => {
-      if (event.key === "Escape") close();
-      if (event.key !== "Tab") return;
-      const focusable = [...dialogRef.current.querySelectorAll("a, button")];
-      const first = focusable[0], last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
-    };
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      document.removeEventListener("keydown", onKeyDown);
-      previousFocus?.focus?.();
-    };
-  }, [open]);
-  if (!open) return null;
-  return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-[#02050A]/90 p-4 backdrop-blur-md" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}>
-      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="service-choice-title" aria-describedby="service-choice-description" className="relative my-auto w-full max-w-3xl rounded-[2rem] border border-[#1D6BFF]/30 bg-[#0B111C] p-6 shadow-[0_0_70px_rgba(29,107,255,0.18)] sm:p-10">
-        <button type="button" onClick={close} aria-label="Close service selection" className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-[#1D6BFF]/50 bg-[#1D6BFF]/10 text-[#49A6FF] transition hover:border-[#49A6FF] hover:bg-[#1D6BFF]/25 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#49A6FF]"><svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
-        <p className="text-sm font-bold uppercase tracking-[0.25em] text-[#49A6FF]">Welcome to RBPT Coaching</p>
-        <h2 id="service-choice-title" className="mt-4 max-w-xl text-3xl font-black tracking-[-0.04em] sm:text-5xl">How can I help you move forward?</h2>
-        <p id="service-choice-description" className="mt-4 max-w-2xl leading-7 text-[#AAB4C3]">Choose the service you’re interested in and I’ll show you where to start.</p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          <a href="/assisted-stretching" onClick={close} className="group rounded-[1.5rem] border border-[#1D6BFF]/40 bg-[#1D6BFF]/10 p-6 transition hover:border-[#49A6FF] hover:bg-[#1D6BFF]/20">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF]">Nashville · In your home</span>
-            <h3 className="mt-4 text-2xl font-bold">Assisted stretching</h3>
-            <p className="mt-3 leading-7 text-[#AAB4C3]">One-on-one guided stretching built around where you feel tight and how you want to move.</p>
-            <span className="mt-6 inline-flex items-center gap-2 font-semibold text-white">Explore stretching <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
-          </a>
-          <a href="/virtual-training" onClick={close} className="group rounded-[1.5rem] border border-white/15 bg-white/[0.04] p-6 transition hover:border-[#49A6FF] hover:bg-white/[0.08]">
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF]">Train from anywhere</span>
-            <h3 className="mt-4 text-2xl font-bold">Virtual personal training</h3>
-            <p className="mt-3 leading-7 text-[#AAB4C3]">A training plan, accountability, and coaching support you can follow wherever you are.</p>
-            <span className="mt-6 inline-flex items-center gap-2 font-semibold text-white">Explore online coaching <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
-          </a>
-        </div>
-        <button type="button" onClick={close} className="mt-6 text-sm text-[#AAB4C3] underline underline-offset-4 hover:text-white">Just browse the site</button>
-      </div>
-    </div>
-  );
-}
-
-function StretchingBenefits() {
-  const benefits = [
-    ["Move with more ease", "Spend focused time on areas that feel tight and work toward a comfortable range of motion."],
-    ["Guidance that adapts to you", "Get help with positioning and intensity while staying in control of how each stretch feels."],
-    ["A moment to reset", "Set aside time to slow down, breathe, and pay attention to how your body feels."],
-    ["A routine that fits your life", "Make stretching easier to keep up with by having your session at home."],
-  ];
-  return (
-    <section aria-labelledby="stretching-benefits-title" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
-      <div className="grid gap-7 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF] sm:text-sm">Why assisted stretching?</p>
-          <h2 id="stretching-benefits-title" className="mt-3 text-3xl font-black leading-tight tracking-[-0.04em] sm:text-5xl">More than just touching your toes.</h2>
-          <p className="mt-4 leading-7 text-[#AAB4C3] sm:leading-8">A one-on-one session gives you dedicated time and hands-on guidance, with each stretch chosen for your body and goals.</p>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
-          {benefits.map(([title, detail]) => (
-            <article key={title} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:rounded-[1.5rem] sm:p-6">
-              <h3 className="text-lg font-bold sm:text-xl">{title}</h3>
-              <p className="mt-2 text-sm leading-6 text-[#AAB4C3] sm:text-base sm:leading-7">{detail}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function StretchingForYourLife() {
-  const activities = [
-    ["Golf", "A round involves repeated swings and time on your feet. We can spend focused time on your hips, back, and shoulders based on how you move and where you feel limited."],
-    ["Everyday movement", "Whether you're navigating stairs, getting up from a chair, or heading out for a walk, we can focus on comfortable movement and balance goals that matter to you."],
-    ["Pickleball & tennis", "Court play asks for quick steps, reaches, and turns. Sessions can focus on the hips, legs, and shoulders you use on the court, with a pace that feels right for you."],
-  ];
-  return (
-    <section aria-labelledby="stretching-life-title" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
-      <SectionHeader eyebrow="Built around what you do" title="Move for the life you enjoy." text="Tell me what you want to keep doing. Your session can focus on the areas you use most, without forcing a one-size-fits-all routine." />
-      <div className="mt-7 grid gap-3 sm:gap-5 md:grid-cols-3">
-        {activities.map(([title, detail]) => (
-          <article key={title} className="rounded-[1.5rem] border border-white/10 bg-[#0E131B]/80 p-5 sm:p-7">
-            <h3 className="text-xl font-bold text-white">{title}</h3>
-            <p className="mt-2 text-sm leading-6 text-[#AAB4C3] sm:mt-3 sm:text-base sm:leading-7">{detail}</p>
-          </article>
-        ))}
-      </div>
-      <div className="mt-5 rounded-[1.5rem] border border-[#1D6BFF]/30 bg-[#1D6BFF]/10 p-5 sm:p-9">
-        <h3 className="text-xl font-bold">After a joint replacement</h3>
-        <p className="mt-3 max-w-4xl leading-7 text-[#D3DAE5]">After a joint replacement, stretching can help restore flexibility and range of motion as you recover. Once your surgeon or physical therapist clears you, gentle assisted stretching can support more comfortable movement in everyday life.</p>
-      </div>
-    </section>
-  );
-}
-
-function StretchingFAQ() {
-  const questions = [
-    ["Where do sessions take place?", "I come to your home in the Nashville area, so you can stretch in a familiar space."],
-    ["Do I need any equipment?", "No. I bring a portable treatment table and the equipment needed for the session."],
-    ["Will the stretches be tailored to me?", "Yes. We'll talk about your goals and how you feel, then adjust each stretch to your comfort level."],
-    ["Can I do assisted stretching after a joint replacement?", "Ask your surgeon or physical therapist when assisted stretching is appropriate for you. We'll follow any movement limits they give you."],
-  ];
-  return (
-    <section aria-labelledby="stretching-faq-title" className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-20">
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF] sm:text-sm">Assisted stretching FAQ</p>
-      <h2 id="stretching-faq-title" className="mt-3 text-3xl font-black tracking-[-0.04em] sm:text-5xl">Common questions.</h2>
-      <div className="mt-7 space-y-3 sm:mt-10 sm:space-y-4">
-        {questions.map(([question, answer]) => (
-          <details key={question} className="group rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:rounded-[1.5rem] sm:p-6">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-bold marker:hidden [&::-webkit-details-marker]:hidden">
-              {question}<span aria-hidden="true" className="shrink-0 text-2xl font-normal leading-none text-[#49A6FF] group-open:rotate-45">+</span>
-            </summary>
-            <p className="mt-3 max-w-3xl leading-7 text-[#AAB4C3]">{answer}</p>
-          </details>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function AssistedStretchingPage() {
-  useEffect(() => {
-    document.title = "In-Home Assisted Stretching in Nashville | RBPT Coaching";
-    let description = document.querySelector('meta[name="description"]');
-    if (!description) {
-      description = document.createElement("meta");
-      description.name = "description";
-      document.head.appendChild(description);
-    }
-    description.content = "One-on-one assisted stretching delivered to your home in Nashville. Personalized sessions with Ryan Barker of RBPT Coaching.";
-  }, []);
-
-  const steps = [
-    ["Talk through your goals", "We start with where you feel tight, how you move, and what you want to get out of the session."],
-    ["Stretch at your pace", "I guide you through comfortable, one-on-one assisted stretches and adjust based on your feedback."],
-    ["Build consistency", "We can focus on specific areas or make stretching a regular part of your routine."],
-  ];
-  return (
-    <main className="relative z-10">
-      <section className="mx-auto grid max-w-7xl gap-7 px-4 pb-10 pt-8 sm:px-6 sm:pb-16 sm:pt-16 lg:grid-cols-2 lg:items-center lg:gap-12">
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF] sm:text-sm sm:tracking-[0.3em]">In-home service · Nashville, TN</p>
-          <h1 className="mt-4 text-4xl font-black leading-[1.08] tracking-[-0.05em] sm:mt-6 sm:text-6xl lg:text-7xl">Assisted stretching that comes to you.</h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-[#AAB4C3] sm:mt-7 sm:text-xl sm:leading-8">One-on-one stretching in the comfort of your home, tailored to how you move and where you feel tight.</p>
-          <div className="mt-6 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:gap-4">
-            <a href="https://form.typeform.com/to/A2k0ugFO" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1D6BFF] px-7 py-3 font-semibold text-white shadow-[0_0_34px_rgba(29,107,255,0.35)] hover:bg-[#49A6FF] sm:py-4">Request a Free Session <ArrowRight className="h-4 w-4" /></a>
-            <a href="#how-it-works" className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/20 px-7 py-3 font-semibold hover:border-[#49A6FF] sm:py-4">How it works</a>
-          </div>
-        </div>
-        <img src={assistedHamstringStretch} alt="Ryan guiding a client's hamstring stretch on a portable treatment table at home" className="block h-auto w-full rounded-[1.5rem] border border-white/10 sm:rounded-[2rem]" fetchPriority="high" />
-      </section>
-      <section className="mx-auto grid max-w-7xl gap-7 px-4 py-10 sm:px-6 sm:py-16 lg:grid-cols-2 lg:items-center lg:gap-12">
-        <div>
-          <SectionHeader eyebrow="A session built around you" title="A little more room to move." text="I guide each stretch and adjust the position and intensity with your feedback. Sessions can focus on your neck, shoulders, back, hips, or legs." />
-          <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:mt-8 sm:rounded-[2rem] sm:p-8">
-            <h3 className="text-lg font-bold sm:text-2xl">Good fit if you want to…</h3>
-            <ul className="mt-4 space-y-3 text-sm leading-6 text-[#D3DAE5] sm:mt-6 sm:space-y-4 sm:text-base">
-              {["Make time for flexibility and mobility", "Work on the areas that feel tight", "Get hands-on guidance instead of stretching alone", "Pair stretching with your training routine"].map((item) => <li key={item} className="flex gap-3"><CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#49A6FF]" />{item}</li>)}
-            </ul>
-          </div>
-        </div>
-        <img src={assistedBackStretch} alt="Ryan guiding a client's back and hip stretch on a portable treatment table at home" className="block h-auto w-full rounded-[1.5rem] border border-white/10 sm:rounded-[2rem]" loading="lazy" />
-      </section>
-      <section id="how-it-works" className="mx-auto max-w-7xl scroll-mt-12 px-4 py-12 sm:px-6 sm:py-20">
-        <SectionHeader eyebrow="What to expect" title="Simple, personal, convenient." text="I bring the session to your home and work at a pace that feels right for you." />
-        <div className="mt-7 grid gap-3 sm:mt-10 sm:gap-5 md:grid-cols-3">
-          {steps.map(([title, detail], index) => <div key={title} className="rounded-2xl border border-white/10 bg-[#0E131B]/80 p-5 sm:rounded-[1.5rem] sm:p-7"><span className="text-xs font-black text-[#49A6FF] sm:text-sm">0{index + 1}</span><h3 className="mt-2 text-lg font-bold sm:mt-5 sm:text-xl">{title}</h3><p className="mt-2 text-sm leading-6 text-[#AAB4C3] sm:mt-3 sm:text-base sm:leading-7">{detail}</p></div>)}
-        </div>
-      </section>
-      <StretchingBenefits />
-      <StretchingForYourLife />
-      <section aria-labelledby="stretching-balance-title" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-16">
-        <div className="rounded-[1.5rem] border border-[#1D6BFF]/30 bg-[#1D6BFF]/10 p-5 sm:rounded-[2rem] sm:p-12">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF] sm:text-sm sm:tracking-[0.3em]">Balance matters</p>
-          <h2 id="stretching-balance-title" className="mt-3 text-3xl font-black tracking-[-0.04em] sm:mt-4 sm:text-4xl">Feel more confident on your feet.</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-[#D3DAE5] sm:mt-5 sm:text-base sm:leading-8">If feeling steadier is one of your goals, we can work on comfortable mobility and add supported balance exercises suited to your ability. Stretching is one part of the plan; balance improves through practice, too.</p>
-        </div>
-      </section>
-      <StretchingFAQ />
-      <section className="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 sm:pb-24 sm:pt-12">
-        <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6 text-center sm:rounded-[2rem] sm:p-12">
-          <h2 className="text-3xl font-black tracking-[-0.04em] sm:text-4xl">Ready to move more comfortably?</h2>
-          <p className="mx-auto mt-3 max-w-xl leading-7 text-[#AAB4C3]">Let's talk about what you'd like to work on.</p>
-          <a href="https://form.typeform.com/to/A2k0ugFO" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#1D6BFF] px-7 py-3 font-semibold text-white hover:bg-[#49A6FF] sm:w-auto">Request a Free Session <ArrowRight className="h-4 w-4" /></a>
-        </div>
-      </section>
-    </main>
   );
 }
 
@@ -1069,16 +864,40 @@ function MeetCoachSection() {
     { icon: Dumbbell, title: "Wide Range of Client Experience", text: "Experience working with clients from a wide range of backgrounds, including beginners, athletes, weight loss clients, and individuals focused on long-term health and performance." },
   ];
 
-  return (
-    <section aria-labelledby="coach-background-title" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
-      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:rounded-[2.5rem] sm:p-8 xl:p-10">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(29,107,255,0.20),transparent_42%),radial-gradient(circle_at_90%_100%,rgba(73,166,255,0.10),transparent_38%)]" />
+  const coachChips = [
+    "Bachelor's Degree in Exercise Science",
+    "Certified Nutrition Coach",
+    "Certified Personal Trainer",
+  ];
 
-        <div className="relative grid gap-8 xl:grid-cols-[0.95fr_1.05fr] xl:items-center">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF] sm:text-sm">Background and experience</p>
-            <h2 id="coach-background-title" className="mt-3 text-3xl font-black tracking-[-0.04em] sm:text-5xl">A coach who meets you where you are.</h2>
-            <p className="mt-5 leading-7 text-[#AAB4C3] sm:text-lg sm:leading-8">My exercise science background and hands-on coaching experience shape how I work with every client. Your goals, starting point, and feedback guide the plan.</p>
+  return (
+    <section id="coach" className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-20">
+      <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.035] p-5 sm:rounded-[2.5rem] sm:p-8 xl:p-10">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(29,107,255,0.18),transparent_42%),radial-gradient(circle_at_90%_100%,rgba(73,166,255,0.10),transparent_38%)]" />
+
+        <div className="relative grid gap-8 xl:grid-cols-[1.02fr_0.98fr] xl:items-center">
+          <div className="max-w-[620px]">
+            <p className="text-sm sm:text-base font-bold uppercase tracking-[0.35em] text-[#49A6FF]">
+              Meet Your Coach
+            </p>
+            <h2 className="mt-4 max-w-full break-words text-[2.65rem] font-black leading-[0.98] tracking-[-0.045em] sm:text-[3.45rem] xl:text-[4.45rem]">
+              Results-driven coaching focused on long-term success.
+            </h2>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-[#AAB4C3] sm:text-lg sm:leading-8">
+              I help clients improve their health, performance, and confidence through personalized coaching focused on strength training, nutrition, accountability, and long-term wellness.
+            </p>
+
+            <div className="mt-7 grid gap-3 sm:grid-cols-3 xl:max-w-[590px]">
+              {coachChips.map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-2 rounded-2xl border border-[#1D6BFF]/20 bg-[#07111F]/70 px-4 py-3 text-sm font-bold text-white shadow-[0_0_18px_rgba(29,107,255,0.08)]"
+                >
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-[#49A6FF]" />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
@@ -1092,52 +911,18 @@ function MeetCoachSection() {
   );
 }
 
-function CoachPage() {
-  useEffect(() => {
-    document.title = "Meet Ryan Barker | RBPT Coaching";
-    let description = document.querySelector('meta[name="description"]');
-    if (!description) {
-      description = document.createElement("meta");
-      description.name = "description";
-      document.head.appendChild(description);
-    }
-    description.content = "Meet Ryan Barker, the coach behind RBPT Coaching's virtual training and in-home assisted stretching in Nashville.";
-  }, []);
-
-  return (
-    <main className="relative z-10">
-      <section className="mx-auto grid max-w-7xl items-center gap-9 px-4 pb-12 pt-8 sm:px-6 sm:py-16 lg:grid-cols-2 lg:gap-14">
-        <div>
-          <h1 className="mt-4 text-4xl font-black leading-[1.05] tracking-[-0.05em] sm:text-6xl">Meet Ryan Barker.</h1>
-          <p className="mt-5 max-w-xl text-base leading-7 text-[#D3DAE5] sm:text-lg sm:leading-8">I’m an exercise science graduate and personal trainer who believes coaching should fit the person in front of me.</p>
-          <p className="mt-4 max-w-xl leading-7 text-[#AAB4C3]">Whether we’re working on a training plan online or stretching together in your home, I start by listening to your goals and adjusting the session to what you need.</p>
-          <a href="#services" className="mt-7 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1D6BFF] px-7 py-3 font-semibold text-white hover:bg-[#49A6FF]">Find your service <ArrowRight className="h-4 w-4" /></a>
-        </div>
-        <CoachHeroCard portrait={coachPagePortrait} fullPortrait />
-      </section>
-      <MeetCoachSection />
-      <section id="services" aria-labelledby="coach-services-title" className="mx-auto max-w-7xl scroll-mt-12 px-4 py-12 sm:px-6 sm:py-20">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF] sm:text-sm">Work with me</p>
-        <h2 id="coach-services-title" className="mt-3 text-3xl font-black tracking-[-0.04em] sm:text-5xl">Choose the support that fits you.</h2>
-        <div className="mt-7 grid gap-4 md:grid-cols-2">
-          <a href="/virtual-training" className="group rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6 transition hover:border-[#49A6FF] hover:bg-white/[0.08] sm:p-8">
-            <h3 className="text-2xl font-bold">Virtual personal training</h3>
-            <p className="mt-3 leading-7 text-[#AAB4C3]">Personalized workouts, nutrition guidance, and accountability you can follow wherever you train.</p>
-            <span className="mt-6 inline-flex items-center gap-2 font-semibold text-[#49A6FF]">Explore virtual training <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
-          </a>
-          <a href="/assisted-stretching" className="group rounded-[1.5rem] border border-[#1D6BFF]/30 bg-[#1D6BFF]/10 p-6 transition hover:border-[#49A6FF] hover:bg-[#1D6BFF]/20 sm:p-8">
-            <h3 className="text-2xl font-bold">In-home assisted stretching</h3>
-            <p className="mt-3 leading-7 text-[#AAB4C3]">One-on-one guided stretching in the comfort of your Nashville home.</p>
-            <span className="mt-6 inline-flex items-center gap-2 font-semibold text-[#49A6FF]">Explore assisted stretching <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
-          </a>
-        </div>
-      </section>
-    </main>
-  );
-}
-
 function CredentialCard({ icon: Icon, title, text }) {
-  return <div className="flex gap-4 rounded-[1.75rem] border border-white/10 bg-white/[0.04] p-5"><div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#1D6BFF]/15 text-[#49A6FF]"><Icon className="h-6 w-6" /></div><div><h3 className="text-lg font-bold">{title}</h3><p className="mt-2 leading-7 text-[#AAB4C3]">{text}</p></div></div>;
+  return (
+    <div className="flex gap-4 rounded-[1.65rem] border border-white/10 bg-white/[0.04] p-4 sm:p-5 xl:p-4">
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#1D6BFF]/15 text-[#49A6FF]">
+        <Icon className="h-5 w-5" />
+      </div>
+      <div>
+        <h3 className="text-base font-bold sm:text-lg">{title}</h3>
+        <p className="mt-2 text-sm leading-6 text-[#AAB4C3] sm:text-base sm:leading-7">{text}</p>
+      </div>
+    </div>
+  );
 }
 
 function ScienceSection() {
@@ -1268,19 +1053,9 @@ function ProcessSection() {
 
 function FAQSection() {
   return (
-    <section id="faq" aria-labelledby="virtual-faq-title" className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-20">
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF] sm:text-sm">Virtual training FAQ</p>
-      <h2 id="virtual-faq-title" className="mt-3 text-3xl font-black tracking-[-0.04em] sm:text-5xl">Common questions.</h2>
-      <div className="mt-7 space-y-3 sm:mt-10 sm:space-y-4">
-        {faqs.map((item) => (
-          <details key={item.q} className="group rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:rounded-[1.5rem] sm:p-6">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-bold marker:hidden [&::-webkit-details-marker]:hidden">
-              {item.q}<span aria-hidden="true" className="shrink-0 text-2xl font-normal leading-none text-[#49A6FF] group-open:rotate-45">+</span>
-            </summary>
-            <p className="mt-3 max-w-3xl leading-7 text-[#AAB4C3]">{item.a}</p>
-          </details>
-        ))}
-      </div>
+    <section id="faq" className="mx-auto max-w-5xl px-6 py-20">
+      <div className="text-center"><p className="text-sm font-bold uppercase tracking-[0.35em] text-[#49A6FF]">FAQ</p><h2 className="mt-4 text-4xl font-black tracking-[-0.04em] md:text-5xl">Common questions.</h2></div>
+      <div className="mt-10 space-y-4">{faqs.map((item) => <div key={item.q} className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6"><h3 className="font-bold">{item.q}</h3><p className="mt-2 leading-7 text-[#AAB4C3]">{item.a}</p></div>)}</div>
     </section>
   );
 }
@@ -1323,7 +1098,7 @@ function CTASection() {
 
 
 function Footer() {
-  return <footer className="relative z-10 border-t border-white/10 px-6 py-10"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 text-sm text-[#AAB4C3] md:flex-row md:items-center"><a href="/" className="flex items-center gap-3"><RBPTLogo className="h-10 w-10" /><p>© 2026 RBPT Coaching</p></a><div className="flex flex-wrap gap-6"><a href="/" className="hover:text-white">Meet Your Coach</a><a href="/virtual-training" className="hover:text-white">Virtual Training</a><a href="/assisted-stretching" className="hover:text-white">Assisted Stretching</a></div></div></footer>;
+  return <footer className="relative z-10 border-t border-white/10 px-6 py-10"><div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 text-sm text-[#AAB4C3] md:flex-row md:items-center"><div className="flex items-center gap-3"><RBPTLogo className="h-10 w-10" /><p>© 2026 RBPT Coaching</p></div><div className="flex gap-6"><a href="#coach" className="hover:text-white">Meet Your Coach</a><a href="#app" className="hover:text-white">App</a><a href="#apply" className="hover:text-white">Apply</a></div></div></footer>;
 }
 
 
@@ -1332,9 +1107,6 @@ function SectionHeader({ eyebrow, title, text }) {
 }
 
 export default function RBPTWebsite() {
-  const pathname = window.location.pathname.replace(/\/$/, "");
-  const isStretchingPage = pathname === "/assisted-stretching";
-  const isVirtualTrainingPage = pathname === "/virtual-training";
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#05070B] text-[#F4F7FA]">
       <div className="fixed inset-0 pointer-events-none">
@@ -1343,17 +1115,16 @@ export default function RBPTWebsite() {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(circle_at_top,black,transparent_70%)]" />
       </div>
       <Header />
-      {isStretchingPage ? <AssistedStretchingPage /> : isVirtualTrainingPage ? <main className="relative z-10">
+      <main className="relative z-10">
         <Hero />
+        <MeetCoachSection />
         <AppSection />
         <ProcessSection />
         <ResultsSection />
         <FAQSection />
         <CTASection />
-      </main> : <CoachPage />}
+      </main>
       <Footer />
-      <ServiceChooser />
     </div>
   );
 }
- 
