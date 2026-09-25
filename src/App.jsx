@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Activity, BarChart3, Brain, Dumbbell, MessageSquare, Target, Utensils, Zap, ArrowRight, CheckCircle2, ClipboardCheck, Trophy, Repeat, Scale, HeartPulse, Flame } from "lucide-react";
 import rbptLogo from "./assets/rbpt-logo.png";
-import coachimage from "./assets/headshot.png";
+import coachimage from "./assets/headshot.webp";
 import screenDashboard from "./assets/screen-dashboard.png";
 import screenWorkout from "./assets/screen-workout.png";
 import screenNutrition from "./assets/screen-nutrition.png";
 import screenMessaging from "./assets/screen-messaging.png";
-import assistedHamstringStretch from "./assets/assisted-hamstring-stretch.jpg";
+import assistedHamstringStretch from "./assets/assisted-hamstring-stretch.webp";
 import assistedBackStretch from "./assets/assisted-back-stretch.webp";
-import coachPagePortrait from "./assets/coach-page-portrait.png";
+import coachPagePortrait from "./assets/coach-page-portrait.webp";
 
 const rbptLogoSrc = rbptLogo;
 const coachImageSrc = coachimage;
