@@ -319,12 +319,7 @@ function MiniStat({ label, value, accent = false }) {
 
 function CoachHeroCard({ portrait = coachImageSrc, fullPortrait = false }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.94 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.7 }}
-      className="relative z-0"
-    >
+    <div className="relative z-0">
       <div className={`relative mx-auto w-full overflow-hidden rounded-[2rem] border border-[#1D6BFF]/20 bg-[#0E131B] shadow-2xl sm:rounded-[2.5rem] ${fullPortrait ? "max-w-[320px] p-2 sm:max-w-[390px] sm:p-3" : "max-w-[500px] p-4 sm:p-5 xl:max-w-[560px]"}`}>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(29,107,255,0.26),transparent_58%)]" />
         <div className={`relative mx-auto w-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-gradient-to-br from-[#111A28] via-[#05070B] to-black sm:rounded-[2rem] ${fullPortrait ? "aspect-[2/3]" : "aspect-[4/5]"}`}>
@@ -346,38 +341,35 @@ function CoachHeroCard({ portrait = coachImageSrc, fullPortrait = false }) {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
 function Hero() {
   return (
     <section className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 pt-10 sm:px-6 xl:grid-cols-2 xl:pb-28 xl:pt-24">
-      <motion.div initial="hidden" animate="visible" variants={stagger}>
-        <motion.div variants={fadeUp} className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#1D6BFF]/30 bg-[#0E131B]/80 px-4 py-2 text-sm text-[#AAB4C3] backdrop-blur">
+      <div>
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#1D6BFF]/30 bg-[#0E131B]/80 px-4 py-2 text-sm text-[#AAB4C3] sm:backdrop-blur">
           <Zap className="h-4 w-4 text-[#49A6FF]" /> Evidence-based. Built for real life.
-        </motion.div>
-        <motion.h1
-          variants={fadeUp}
+        </div>
+        <h1
           className="max-w-full break-words text-[2.35rem] font-black leading-[0.9] tracking-[-0.055em] min-[430px]:text-[3rem] sm:text-6xl xl:text-7xl"
         >
           YOUR COACH 
           IN YOUR POCKET.
-        </motion.h1>
-        <motion.p
-          variants={fadeUp}
+        </h1>
+        <p
           className="mt-5 max-w-xl text-sm leading-7 text-[#AAB4C3] min-[430px]:text-base sm:text-lg sm:leading-8"
         >
           Built for people who want more than generic workout plans. RBPT combines performance focused training, practical nutrition, and real accountability to help you build strength, improve your physique, and perform at a higher level.
-        </motion.p>
-        <motion.div
-          variants={fadeUp}
+        </p>
+        <div
           className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4"
         >
           <a href="#apply" className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#1D6BFF] px-7 py-4 font-semibold text-white shadow-[0_0_34px_rgba(29,107,255,0.45)] hover:bg-[#49A6FF]">Apply For Coaching <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></a>
           
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
       <CoachHeroCard />
     </section>
   );
@@ -427,7 +419,7 @@ function ServiceChooser() {
   }, [open]);
   if (!open) return null;
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-[#02050A]/90 p-4 backdrop-blur-md" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-[#02050A]/95 p-4 sm:backdrop-blur-md" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}>
       <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="service-choice-title" aria-describedby="service-choice-description" className="relative my-auto w-full max-w-3xl rounded-[2rem] border border-[#1D6BFF]/30 bg-[#0B111C] p-6 shadow-[0_0_70px_rgba(29,107,255,0.18)] sm:p-10">
         <button type="button" onClick={close} aria-label="Close service selection" className="absolute right-5 top-5 grid h-10 w-10 place-items-center rounded-full border border-[#1D6BFF]/50 bg-[#1D6BFF]/10 text-[#49A6FF] transition hover:border-[#49A6FF] hover:bg-[#1D6BFF]/25 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#49A6FF]"><svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg></button>
         <p className="text-sm font-bold uppercase tracking-[0.25em] text-[#49A6FF]">Welcome to RBPT Coaching</p>
@@ -1337,7 +1329,7 @@ export default function RBPTWebsite() {
   const isVirtualTrainingPage = pathname === "/virtual-training";
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#05070B] text-[#F4F7FA]">
-      <div className="fixed inset-0 pointer-events-none">
+      <div className="pointer-events-none fixed inset-0 hidden sm:block">
         <div className="absolute top-[-180px] right-[-180px] h-[460px] w-[460px] rounded-full bg-[#1D6BFF]/25 blur-[120px]" />
         <div className="absolute bottom-[10%] left-[-160px] h-[315px] w-[315px] rounded-full bg-[#49A6FF]/10 blur-[110px]" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(circle_at_top,black,transparent_70%)]" />
