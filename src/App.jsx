@@ -8,7 +8,7 @@ import screenWorkout from "./assets/screen-workout.png";
 import screenNutrition from "./assets/screen-nutrition.png";
 import screenMessaging from "./assets/screen-messaging.png";
 import assistedHamstringStretch from "./assets/assisted-hamstring-stretch.jpg";
-import assistedBackStretch from "./assets/assisted-back-stretch.png";
+import assistedBackStretch from "./assets/assisted-back-stretch.webp";
 import coachPagePortrait from "./assets/coach-page-portrait.png";
 
 const rbptLogoSrc = rbptLogo;
