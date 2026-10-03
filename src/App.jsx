@@ -475,24 +475,21 @@ function StretchingBenefits() {
 
 function StretchingForYourLife() {
   const activities = [
-    ["Golf", "A round involves repeated swings and time on your feet. We can spend focused time on your hips, back, and shoulders based on how you move and where you feel limited."],
-    ["Everyday movement", "Whether you're navigating stairs, getting up from a chair, or heading out for a walk, we can focus on comfortable movement and balance goals that matter to you."],
-    ["Pickleball & tennis", "Court play asks for quick steps, reaches, and turns. Sessions can focus on the hips, legs, and shoulders you use on the court, with a pace that feels right for you."],
+    ["Sports & active lifestyles", "Golf swings, pickleball rallies, tennis, and strength training all ask different things of your body. Assisted stretching gives focused attention to the hips, shoulders, back, and legs you rely on, helping you work on flexibility alongside your regular training."],
+    ["Everyday stiffness & limited mobility", "If sitting, work, or daily routines leave you feeling tight, sessions can focus on the areas that make bending, reaching, walking, or getting up from a chair feel restricted."],
+    ["After a joint replacement", "Once your surgeon or physical therapist clears you for assisted stretching, sessions can help you continue working on flexibility within your approved movement limits. Each stretch respects your hip or knee precautions and complements your prescribed rehabilitation."],
+    ["Sciatica & symptom relief", "Gentle stretching can help ease sciatica-related discomfort and improve movement comfort. Sessions focus on your hips, glutes, and surrounding muscles, with each stretch tailored to your symptoms and comfort level. We avoid positions that increase radiating pain, tingling, or numbness."],
   ];
   return (
     <section aria-labelledby="stretching-life-title" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
-      <SectionHeader eyebrow="Built around what you do" title="Move for the life you enjoy." text="Tell me what you want to keep doing. Your session can focus on the areas you use most, without forcing a one-size-fits-all routine." />
-      <div className="mt-7 grid gap-3 sm:gap-5 md:grid-cols-3">
+      <SectionHeader eyebrow="Built around what you do" title="Who benefits from assisted stretching?" text="Whether you want to stay active in your favorite sport, work on everyday stiffness, or maintain mobility after a joint replacement, your session is built around your goals and comfort level. I guide each stretch and adjust the position and intensity with your feedback." />
+      <div className="mt-7 grid gap-3 sm:gap-5 md:grid-cols-2">
         {activities.map(([title, detail]) => (
           <article key={title} className="rounded-[1.5rem] border border-white/10 bg-[#0E131B]/80 p-5 sm:p-7">
             <h3 className="text-xl font-bold text-white">{title}</h3>
             <p className="mt-2 text-sm leading-6 text-[#AAB4C3] sm:mt-3 sm:text-base sm:leading-7">{detail}</p>
           </article>
         ))}
-      </div>
-      <div className="mt-5 rounded-[1.5rem] border border-[#1D6BFF]/30 bg-[#1D6BFF]/10 p-5 sm:p-9">
-        <h3 className="text-xl font-bold">After a joint replacement</h3>
-        <p className="mt-3 max-w-4xl leading-7 text-[#D3DAE5]">After a joint replacement, stretching can help restore flexibility and range of motion as you recover. Once your surgeon or physical therapist clears you, gentle assisted stretching can support more comfortable movement in everyday life.</p>
       </div>
     </section>
   );
@@ -1056,9 +1053,9 @@ function Phone3D({ title, label, screen, bubbleTitle, bubbleText }) {
 
 function MeetCoachSection() {
   const credentials = [
-    { icon: Brain, title: "Exercise Science Background", text: "Backed by a degree in Exercise Science with a focus on performance, biomechanics, and evidence-based training." },
-    { icon: Activity, title: "Data-Driven Coaching", text: "Using performance data, progress tracking, and evidence-based strategies to deliver measurable client results." },
-    { icon: Dumbbell, title: "Wide Range of Client Experience", text: "Experience working with clients from a wide range of backgrounds, including beginners, athletes, weight loss clients, and individuals focused on long-term health and performance." },
+    { icon: Brain, title: "B.S. in Exercise Science", text: "A Bachelor of Science in Exercise Science from Western Michigan University provides the foundation for my approach to strength, movement, and evidence-based coaching." },
+    { icon: Activity, title: "Certified Personal Trainer", text: "Professional training expertise paired with a personalized approach. I build each plan around your goals, track your progress, and adjust as your needs evolve." },
+    { icon: Dumbbell, title: "2,000+ Client Sessions", text: "Hands-on experience across more than 2,000 client sessions, working with beginners, athletes, and older adults on strength, mobility, weight loss, and long-term health." },
   ];
 
   return (
@@ -1070,7 +1067,7 @@ function MeetCoachSection() {
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF] sm:text-sm">Background and experience</p>
             <h2 id="coach-background-title" className="mt-3 text-3xl font-black tracking-[-0.04em] sm:text-5xl">A coach who meets you where you are.</h2>
-            <p className="mt-5 leading-7 text-[#AAB4C3] sm:text-lg sm:leading-8">My exercise science background and hands-on coaching experience shape how I work with every client. Your goals, starting point, and feedback guide the plan.</p>
+            <p className="mt-5 leading-7 text-[#AAB4C3] sm:text-lg sm:leading-8">With a degree in Exercise Science, personal training certification, and more than 2,000 client sessions, I bring both scientific knowledge and practical experience to your coaching. Your goals, starting point, and feedback guide every step.</p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
@@ -1101,7 +1098,7 @@ function CoachPage() {
       <section className="mx-auto grid max-w-7xl items-center gap-9 px-4 pb-12 pt-8 sm:px-6 sm:py-16 lg:grid-cols-2 lg:gap-14">
         <div>
           <h1 className="mt-4 text-4xl font-black leading-[1.05] tracking-[-0.05em] sm:text-6xl">Meet Ryan Barker.</h1>
-          <p className="mt-5 max-w-xl text-base leading-7 text-[#D3DAE5] sm:text-lg sm:leading-8">I’m an exercise science graduate and personal trainer who believes coaching should fit the person in front of me.</p>
+          <p className="mt-5 max-w-xl text-base leading-7 text-[#D3DAE5] sm:text-lg sm:leading-8">I’m a Certified Personal Trainer with a B.S. in Exercise Science and experience across more than 2,000 client sessions. I combine that foundation with coaching built around you.</p>
           <p className="mt-4 max-w-xl leading-7 text-[#AAB4C3]">Whether we’re working on a training plan online or stretching together in your home, I start by listening to your goals and adjusting the session to what you need.</p>
           <a href="#services" className="mt-7 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1D6BFF] px-7 py-3 font-semibold text-white hover:bg-[#49A6FF]">Find your service <ArrowRight className="h-4 w-4" /></a>
         </div>
