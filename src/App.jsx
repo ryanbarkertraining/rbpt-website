@@ -361,8 +361,12 @@ function Hero() {
         <p
           className="mt-5 max-w-xl text-sm leading-7 text-[#AAB4C3] min-[430px]:text-base sm:text-lg sm:leading-8"
         >
-          Built for people who want more than generic workout plans. RBPT combines performance focused training, practical nutrition, and real accountability to help you build strength, improve your physique, and perform at a higher level.
+          <MobileCopy full={"Built for people who want more than generic workout plans. RBPT combines performance focused training, practical nutrition, and real accountability to help you build strength, improve your physique, and perform at a higher level."} short={"Personalized training, practical nutrition, and real accountability. Build strength with a plan that fits your life."} />
         </p>
+        <div className="mt-6 rounded-2xl border border-[#1D6BFF]/30 bg-[#1D6BFF]/10 p-5">
+          <p className="text-2xl font-black text-white sm:text-3xl">$300 <span className="text-base font-medium text-[#AAB4C3]">per month</span></p>
+          <p className="mt-2 text-sm leading-6 text-[#D3DAE5]"><MobileCopy full="Includes personalized workouts, nutrition guidance, weekly check-ins, and direct coach messaging." short="Custom workouts • Nutrition guidance • Weekly check-ins • Coach messaging" /></p>
+        </div>
         <div
           className="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4"
         >
@@ -446,28 +450,18 @@ function ServiceChooser() {
 }
 
 function StretchingBenefits() {
-  const benefits = [
-    ["Move with more ease", "Spend focused time on areas that feel tight and work toward a comfortable range of motion."],
-    ["Guidance that adapts to you", "Get help with positioning and intensity while staying in control of how each stretch feels."],
-    ["A moment to reset", "Set aside time to slow down, breathe, and pay attention to how your body feels."],
-    ["A routine that fits your life", "Make stretching easier to keep up with by having your session at home."],
-  ];
   return (
     <section aria-labelledby="stretching-benefits-title" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
-      <div className="grid gap-7 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+      <div className="grid gap-8 sm:gap-12">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF] sm:text-sm">Why assisted stretching?</p>
           <h2 id="stretching-benefits-title" className="mt-3 text-3xl font-black leading-tight tracking-[-0.04em] sm:text-5xl">More than just touching your toes.</h2>
           <p className="mt-4 leading-7 text-[#AAB4C3] sm:leading-8">A one-on-one session gives you dedicated time and hands-on guidance, with each stretch chosen for your body and goals.</p>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
-          {benefits.map(([title, detail]) => (
-            <article key={title} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:rounded-[1.5rem] sm:p-6">
-              <h3 className="text-lg font-bold sm:text-xl">{title}</h3>
-              <p className="mt-2 text-sm leading-6 text-[#AAB4C3] sm:text-base sm:leading-7">{detail}</p>
-            </article>
-          ))}
+        <div className="grid gap-6 sm:grid-cols-3 sm:gap-8">
+          {[[Activity, "Move more comfortably", "Focus on tight areas and mobility."], [CheckCircle2, "Stretch with guidance", "Positions and intensity tailored to you."], [Repeat, "Stay consistent", "Sessions delivered to your home."]].map(([Icon, title, detail]) => <article key={title} className="flex items-start gap-4"><Icon className="mt-1 h-6 w-6 shrink-0 text-[#49A6FF]" aria-hidden="true" /><div><h3 className="text-lg font-bold">{title}</h3><p className="mt-1 text-sm leading-6 text-[#AAB4C3]">{detail}</p></div></article>)}
         </div>
+
       </div>
     </section>
   );
@@ -480,14 +474,19 @@ function StretchingForYourLife() {
     ["After a joint replacement", "Once your surgeon or physical therapist clears you for assisted stretching, sessions can help you continue working on flexibility within your approved movement limits. Each stretch respects your hip or knee precautions and complements your prescribed rehabilitation."],
     ["Sciatica & symptom relief", "Gentle stretching can help ease sciatica-related discomfort and improve movement comfort. Sessions focus on your hips, glutes, and surrounding muscles, with each stretch tailored to your symptoms and comfort level. We avoid positions that increase radiating pain, tingling, or numbness."],
   ];
+  const previews = ["Support flexibility for golf, court sports, and training.", "Focus on stiffness that limits everyday movement.", "Work within your surgeon or physical therapist\u2019s approved limits.", "Gentle stretching can help ease discomfort; avoid movements that worsen symptoms."];
   return (
     <section aria-labelledby="stretching-life-title" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-20">
       <SectionHeader eyebrow="Built around what you do" title="Who benefits from assisted stretching?" text="Whether you want to stay active in your favorite sport, work on everyday stiffness, or maintain mobility after a joint replacement, your session is built around your goals and comfort level. I guide each stretch and adjust the position and intensity with your feedback." />
-      <div className="mt-7 grid gap-3 sm:gap-5 md:grid-cols-2">
-        {activities.map(([title, detail]) => (
-          <article key={title} className="rounded-[1.5rem] border border-white/10 bg-[#0E131B]/80 p-5 sm:p-7">
-            <h3 className="text-xl font-bold text-white">{title}</h3>
-            <p className="mt-2 text-sm leading-6 text-[#AAB4C3] sm:mt-3 sm:text-base sm:leading-7">{detail}</p>
+      <div className="mt-7 divide-y divide-white/10 border-y border-white/10">
+        {activities.map(([title, detail], index) => (
+          <article key={title} className="py-4 sm:py-6">
+            <details className="peer group">
+              <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 [&::-webkit-details-marker]:hidden"><h3 className="text-lg font-bold text-white sm:text-xl">{title}</h3><span aria-hidden="true" className="text-2xl text-[#49A6FF] group-open:rotate-45">+</span></summary>
+              
+              <p className="mt-3 max-w-4xl text-sm leading-6 text-[#AAB4C3] sm:text-base sm:leading-7">{detail}</p>
+            </details>
+            <p className="mt-2 text-sm leading-6 text-[#AAB4C3] peer-open:hidden">{previews[index]}</p>
           </article>
         ))}
       </div>
@@ -544,6 +543,11 @@ function AssistedStretchingPage() {
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF] sm:text-sm sm:tracking-[0.3em]">In-home service · Nashville, TN</p>
           <h1 className="mt-4 text-4xl font-black leading-[1.08] tracking-[-0.05em] sm:mt-6 sm:text-6xl lg:text-7xl">Assisted stretching that comes to you.</h1>
           <p className="mt-5 max-w-2xl text-base leading-7 text-[#AAB4C3] sm:mt-7 sm:text-xl sm:leading-8">One-on-one stretching in the comfort of your home, tailored to how you move and where you feel tight.</p>
+          <div className="mt-6 rounded-2xl border border-[#1D6BFF]/30 bg-[#1D6BFF]/10 p-5">
+            <p className="text-2xl font-black text-white sm:text-3xl">$100 <span className="text-base font-medium text-[#AAB4C3]">per 60-minute session</span></p>
+            <p className="mt-2 text-sm font-semibold text-[#49A6FF]">Your first 60-minute session is free.</p>
+          <p className="mt-3 text-sm leading-6 text-[#D3DAE5]"><span className="font-semibold text-white">Save with session packages.</span><MobileCopy full=" Purchase multiple sessions for a lower per-session rate. Ask about package options when booking." short=" Lower per-session rates. Ask when booking." /></p>
+          </div>
           <div className="mt-6 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:flex-wrap sm:gap-4">
             <a href="https://form.typeform.com/to/A2k0ugFO" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1D6BFF] px-7 py-3 font-semibold text-white shadow-[0_0_34px_rgba(29,107,255,0.35)] hover:bg-[#49A6FF] sm:py-4">Request a Free Session <ArrowRight className="h-4 w-4" /></a>
             <a href="#how-it-works" className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/20 px-7 py-3 font-semibold hover:border-[#49A6FF] sm:py-4">How it works</a>
@@ -565,8 +569,8 @@ function AssistedStretchingPage() {
       </section>
       <section id="how-it-works" className="mx-auto max-w-7xl scroll-mt-12 px-4 py-12 sm:px-6 sm:py-20">
         <SectionHeader eyebrow="What to expect" title="Simple, personal, convenient." text="I bring the session to your home and work at a pace that feels right for you." />
-        <div className="mt-7 grid gap-3 sm:mt-10 sm:gap-5 md:grid-cols-3">
-          {steps.map(([title, detail], index) => <div key={title} className="rounded-2xl border border-white/10 bg-[#0E131B]/80 p-5 sm:rounded-[1.5rem] sm:p-7"><span className="text-xs font-black text-[#49A6FF] sm:text-sm">0{index + 1}</span><h3 className="mt-2 text-lg font-bold sm:mt-5 sm:text-xl">{title}</h3><p className="mt-2 text-sm leading-6 text-[#AAB4C3] sm:mt-3 sm:text-base sm:leading-7">{detail}</p></div>)}
+        <div className="mt-7 ml-3 space-y-7 border-l border-[#49A6FF]/30 sm:ml-0 sm:mt-10 sm:grid sm:grid-cols-3 sm:gap-8 sm:space-y-0 sm:border-l-0 sm:border-t sm:pt-8">
+          {steps.map(([title, detail], index) => <div key={title} className="relative pl-7 sm:pl-0"><span className="absolute -left-3 top-0 flex h-6 w-6 items-center justify-center rounded-full bg-[#1D6BFF] text-[10px] font-black text-white sm:-top-12 sm:left-0 sm:h-8 sm:w-8 sm:text-xs">0{index + 1}</span><h3 className="text-lg font-bold sm:mt-5 sm:text-xl">{title}</h3><p className="mt-2 text-sm leading-6 text-[#AAB4C3] sm:mt-3 sm:text-base sm:leading-7">{detail}</p></div>)}
         </div>
       </section>
       <StretchingBenefits />
@@ -575,14 +579,17 @@ function AssistedStretchingPage() {
         <div className="rounded-[1.5rem] border border-[#1D6BFF]/30 bg-[#1D6BFF]/10 p-5 sm:rounded-[2rem] sm:p-12">
           <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF] sm:text-sm sm:tracking-[0.3em]">Balance matters</p>
           <h2 id="stretching-balance-title" className="mt-3 text-3xl font-black tracking-[-0.04em] sm:mt-4 sm:text-4xl">Feel more confident on your feet.</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-[#D3DAE5] sm:mt-5 sm:text-base sm:leading-8">If feeling steadier is one of your goals, we can work on comfortable mobility and add supported balance exercises suited to your ability. Stretching is one part of the plan; balance improves through practice, too.</p>
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-[#D3DAE5] sm:mt-5 sm:text-base sm:leading-8"><MobileCopy full={"If feeling steadier is one of your goals, we can work on comfortable mobility and add supported balance exercises suited to your ability. Stretching is one part of the plan; balance improves through practice, too."} short={"Work on mobility and supported balance exercises suited to your ability. Balance improves through practice, too."} /></p>
         </div>
       </section>
       <StretchingFAQ />
       <section className="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 sm:pb-24 sm:pt-12">
-        <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-6 text-center sm:rounded-[2rem] sm:p-12">
+        <div className="rounded-[1.5rem] border border-[#1D6BFF]/30 bg-[#1D6BFF]/10 p-6 text-center sm:rounded-[2rem] sm:p-12">
           <h2 className="text-3xl font-black tracking-[-0.04em] sm:text-4xl">Ready to move more comfortably?</h2>
           <p className="mx-auto mt-3 max-w-xl leading-7 text-[#AAB4C3]">Let's talk about what you'd like to work on.</p>
+          <p className="mt-5 text-2xl font-black text-white">$100 <span className="text-base font-medium text-[#AAB4C3]">per 60-minute session</span></p>
+          <p className="mt-2 font-semibold text-[#49A6FF]">Your first 60-minute session is free.</p>
+          <p className="mt-3 text-sm leading-6 text-[#D3DAE5]"><span className="font-semibold text-white">Save with session packages.</span><MobileCopy full=" Purchase multiple sessions for a lower per-session rate. Ask about package options when booking." short=" Lower per-session rates. Ask when booking." /></p>
           <a href="https://form.typeform.com/to/A2k0ugFO" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#1D6BFF] px-7 py-3 font-semibold text-white hover:bg-[#49A6FF] sm:w-auto">Request a Free Session <ArrowRight className="h-4 w-4" /></a>
         </div>
       </section>
@@ -606,7 +613,7 @@ function AppSection() {
       <div className="grid gap-10 xl:grid-cols-[0.95fr_1.05fr] xl:items-center">
         <div>
           <SectionHeader eyebrow="The RBPT App" title="Everything you need. All in one place." text="The RBPT app keeps training, nutrition, daily tasks, and coach communication organized so clients know exactly what to do each day." />
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">{appSteps.map((item) => <AppStep key={item.title} {...item} />)}</div>
+          <div className="mt-6 grid grid-cols-2 gap-x-5 gap-y-6 sm:mt-8 sm:gap-x-8 sm:gap-y-7">{appSteps.map((item) => <AppStep key={item.title} {...item} />)}</div>
         </div>
         <PhoneCarousel />
       </div>
@@ -614,12 +621,19 @@ function AppSection() {
   );
 }
 
-function AppStep({ icon: Icon, title, text }) {
+function AppStep({ icon: Icon, title }) {
+  const features = {
+    "Track Assigned Workouts": ["Workouts", "Log sets, reps, and weights."],
+    "In-App Nutrition Tracking": ["Nutrition", "Track calories and macros."],
+    "Daily To-Do Lists": ["Daily goals", "Stay on top of habits and tasks."],
+    "Instant Messaging": ["Messaging", "Stay connected with your coach."],
+  };
+  const [label, detail] = features[title];
   return (
-    <div className="min-w-0 rounded-[1.5rem] border border-white/10 bg-white/[0.04] p-5">
-      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#1D6BFF]/15 text-[#49A6FF]"><Icon className="h-5 w-5" /></div>
-      <h3 className="font-bold">{title}</h3>
-      <p className="mt-2 text-sm leading-6 text-[#AAB4C3]">{text}</p>
+    <div className="min-w-0 border-t border-white/10 pt-4">
+      <Icon className="mb-3 h-5 w-5 text-[#49A6FF]" aria-hidden="true" />
+      <h3 className="text-sm font-bold sm:text-base">{label}</h3>
+      <p className="mt-1 text-sm leading-6 text-[#AAB4C3]">{detail}</p>
     </div>
   );
 }
@@ -1067,7 +1081,7 @@ function MeetCoachSection() {
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#49A6FF] sm:text-sm">Background and experience</p>
             <h2 id="coach-background-title" className="mt-3 text-3xl font-black tracking-[-0.04em] sm:text-5xl">A coach who meets you where you are.</h2>
-            <p className="mt-5 leading-7 text-[#AAB4C3] sm:text-lg sm:leading-8">With a degree in Exercise Science, personal training certification, and more than 2,000 client sessions, I bring both scientific knowledge and practical experience to your coaching. Your goals, starting point, and feedback guide every step.</p>
+            <p className="mt-5 leading-7 text-[#AAB4C3] sm:text-lg sm:leading-8"><MobileCopy full={"With a degree in Exercise Science, personal training certification, and more than 2,000 client sessions, I bring both scientific knowledge and practical experience to your coaching. Your goals, starting point, and feedback guide every step."} short={"Science-backed knowledge. Hands-on experience. Your goals guide every step."} /></p>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
@@ -1098,8 +1112,8 @@ function CoachPage() {
       <section className="mx-auto grid max-w-7xl items-center gap-9 px-4 pb-12 pt-8 sm:px-6 sm:py-16 lg:grid-cols-2 lg:gap-14">
         <div>
           <h1 className="mt-4 text-4xl font-black leading-[1.05] tracking-[-0.05em] sm:text-6xl">Meet Ryan Barker.</h1>
-          <p className="mt-5 max-w-xl text-base leading-7 text-[#D3DAE5] sm:text-lg sm:leading-8">I’m a Certified Personal Trainer with a B.S. in Exercise Science and experience across more than 2,000 client sessions. I combine that foundation with coaching built around you.</p>
-          <p className="mt-4 max-w-xl leading-7 text-[#AAB4C3]">Whether we’re working on a training plan online or stretching together in your home, I start by listening to your goals and adjusting the session to what you need.</p>
+          <p className="mt-5 max-w-xl text-base leading-7 text-[#D3DAE5] sm:text-lg sm:leading-8"><MobileCopy full={"I’m a Certified Personal Trainer with a B.S. in Exercise Science and experience across more than 2,000 client sessions. I combine that foundation with coaching built around you."} short={"Certified Personal Trainer. B.S. in Exercise Science. 2,000+ client sessions. Coaching built around you."} /></p>
+          <p className="mt-4 max-w-xl leading-7 text-[#AAB4C3]"><MobileCopy full={"Whether we’re working on a training plan online or stretching together in your home, I start by listening to your goals and adjusting the session to what you need."} short={"Online or in your home, I listen to your goals and tailor the work to you."} /></p>
           <a href="#services" className="mt-7 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#1D6BFF] px-7 py-3 font-semibold text-white hover:bg-[#49A6FF]">Find your service <ArrowRight className="h-4 w-4" /></a>
         </div>
         <CoachHeroCard portrait={coachPagePortrait} fullPortrait />
@@ -1200,9 +1214,7 @@ function ResultsSection() {
               </div>
             </div>
 
-            <p className="text-base leading-8 text-[#AAB4C3] md:text-lg md:leading-9">
-              “{testimonial.quote}”
-            </p>
+            <MobileQuote key={testimonial.name} quote={testimonial.quote} />
 
             <div className="mt-8 flex items-center justify-center gap-3">
               <button
@@ -1294,6 +1306,10 @@ function CTASection() {
             schedule, training level, and lifestyle.
           </p>
 
+        <div className="mt-6 mx-auto max-w-2xl rounded-2xl border border-[#1D6BFF]/30 bg-[#1D6BFF]/10 p-5">
+          <p className="text-2xl font-black text-white sm:text-3xl">$300 <span className="text-base font-medium text-[#AAB4C3]">per month</span></p>
+          <p className="mt-2 text-sm leading-6 text-[#D3DAE5]"><MobileCopy full="Includes personalized workouts, nutrition guidance, weekly check-ins, and direct coach messaging." short="Custom workouts • Nutrition guidance • Weekly check-ins • Coach messaging" /></p>
+        </div>
           <a
             href="https://form.typeform.com/to/Fs5TFRQF"
             target="_blank"
@@ -1316,8 +1332,24 @@ function Footer() {
 }
 
 
+function MobileCopy({ full, short }) {
+  return <><span className="sm:hidden">{short}</span><span className="hidden sm:inline">{full}</span></>;
+}
+
+function MobileQuote({ quote }) {
+  const [expanded, setExpanded] = useState(false);
+  const preview = quote.length > 210 ? quote.slice(0, quote.lastIndexOf(" ", 210)) + "…" : quote;
+  return <><div className="sm:hidden"><p className="text-base leading-7 text-[#AAB4C3]">“{expanded ? quote : preview}”</p>{quote.length > 210 && <button type="button" aria-expanded={expanded} onClick={() => setExpanded(!expanded)} className="mt-3 min-h-11 text-sm font-semibold text-[#49A6FF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#49A6FF]">{expanded ? "Read less" : "Read more"}</button>}</div><p className="hidden text-base leading-8 text-[#AAB4C3] sm:block md:text-lg md:leading-9">“{quote}”</p></>;
+}
+
 function SectionHeader({ eyebrow, title, text }) {
-  return <div className="max-w-3xl"><p className="text-sm sm:text-base font-bold uppercase tracking-[0.35em] text-[#49A6FF]">{eyebrow}</p><h2 className="mt-4 max-w-full break-words text-3xl font-black leading-[1] tracking-[-0.04em] sm:text-5xl xl:text-6xl">{title}</h2>{text && <p className="mt-5 text-base leading-7 text-[#AAB4C3] sm:text-lg sm:leading-8">{text}</p>}</div>;
+  const mobileText = {
+    "Who benefits from assisted stretching?": "For sports, everyday stiffness, joint replacements, and sciatica. Tap a topic to learn more.",
+    "Everything you need. All in one place.": "Workouts, nutrition, daily tasks, and coach messaging in one app.",
+    "Backed by science. Explained like a coach.": "Exercise science made practical for your training.",
+    "A little more room to move.": "Guided stretches tailored to your tight areas and comfort level.",
+  }[title];
+  return <div className="max-w-3xl"><p className="text-sm sm:text-base font-bold uppercase tracking-[0.35em] text-[#49A6FF]">{eyebrow}</p><h2 className="mt-4 max-w-full break-words text-3xl font-black leading-[1] tracking-[-0.04em] sm:text-5xl xl:text-6xl">{title}</h2>{text && <p className="mt-5 text-base leading-7 text-[#AAB4C3] sm:text-lg sm:leading-8">{mobileText ? <MobileCopy full={text} short={mobileText} /> : text}</p>}</div>;
 }
 
 export default function RBPTWebsite() {
